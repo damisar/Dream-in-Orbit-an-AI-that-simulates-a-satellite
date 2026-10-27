@@ -1,0 +1,8 @@
+annee1/
+annee2/
+validation/
+hourly_annee1.csv
+pred_*.csv
+.ipynb_checkpoints/
+__pycache__/
+*.pt
