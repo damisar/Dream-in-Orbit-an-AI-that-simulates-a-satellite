@@ -7,3 +7,5 @@ pred_*.csv
 __pycache__/
 *.pt
 X_*.csv
+model_val/
+pred.csv
