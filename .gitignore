@@ -9,3 +9,5 @@ __pycache__/
 X_*.csv
 model_val/
 pred.csv
+model_val_nn/
+pred_nn.csv
