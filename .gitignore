@@ -1,13 +1,27 @@
-annee1/
-annee2/
-validation/
-hourly_annee1.csv
-pred_*.csv
+# Anaconda project files
+anaconda_projects/
+
+# Jupyter Notebook checkpoints
 .ipynb_checkpoints/
+
+# Python cache
 __pycache__/
-*.pt
-X_*.csv
-model_val/
-pred.csv
-model_val_nn/
-pred_nn.csv
+*.pyc
+
+# Environment and configuration files
+.env
+.venv/
+
+# Raw satellite datasets
+data/annee1/
+data/annee2/
+
+# Anaconda project metadata
+anaconda_projects/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
