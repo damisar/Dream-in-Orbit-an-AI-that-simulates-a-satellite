@@ -30,3 +30,13 @@ data/processed/
 
 # Local Python environment package inventory
 installed_packages.txt
+
+# Generated outputs from archived model experiments
+/baseline.csv
+/pred.csv
+/pred_gru.csv
+/pred_gru_15epochs.csv
+/predictions.csv
+
+# Archived validation datasets
+archive/validation/
