@@ -1,444 +1,355 @@
 # 🛰️ Dream-in-Orbit: An AI That Simulates a Satellite
 
+**Satellite Electrical Power Prediction and AI-Powered Simulation Using Machine Learning**
+
 ## 1. Project Overview
 
-**Dream-in-Orbit** is an AI-powered satellite power forecasting and simulation project that uses historical satellite telemetry to predict future electrical power measurements and demonstrate intelligent monitoring capabilities.
+Dream-in-Orbit is an artificial intelligence and machine learning project designed to analyze, predict, and simulate satellite electrical power behavior using historical spacecraft telemetry data.
 
-The project combines data exploration, time-series preprocessing, machine learning, and interactive simulation to investigate how artificial intelligence can support satellite power monitoring and operational analysis.
+The project combines exploratory data analysis, data preprocessing, feature engineering, predictive modeling, and interactive simulation to demonstrate how data-driven techniques can support satellite power monitoring.
 
-Using two years of satellite telemetry data, the system learns relationships between electrical power measurements and predicts the future value of the `NPWD2721` variable approximately **288 seconds (4.8 minutes) ahead**.
+The primary objective is to develop an AI-based prototype capable of learning patterns from satellite telemetry and predicting future electrical power measurements.
 
-The developed prototype integrates a trained machine-learning model into an interactive simulation environment, allowing users to examine predicted power behavior, compare forecasts with actual observations, and monitor predicted power conditions.
+The project also includes a separate hourly prediction deliverable covering multiple satellite power variables.
 
-### Project Scope
+## 2. Problem Statement
 
-The current implementation focuses on **satellite electrical power prediction and monitoring** using historical telemetry.
+Satellites rely on electrical power systems to support essential onboard operations, including communication, navigation, sensing, and onboard computing.
 
-It is an offline, data-driven simulation rather than a complete orbital physics simulator or a live satellite monitoring system.
+Changes in electrical power behavior can affect the reliability and efficiency of satellite operations.
 
-## 2. Project Objectives
+Predicting future power behavior can help engineers understand operational trends, identify unusual patterns, and support informed power-management decisions.
 
-The primary objective of Dream-in-Orbit is to develop an AI-powered prototype capable of predicting satellite electrical power behavior and demonstrating its application in an interactive monitoring simulation.
+Dream-in-Orbit investigates how machine learning can be used to model satellite power behavior from historical telemetry and demonstrate predictions through an interactive simulation.
 
-### Specific Objectives
+## 3. Project Objectives
 
-1. **Explore satellite telemetry data:** Analyze historical electrical power measurements to identify distributions, correlations, temporal patterns, and data-quality issues.
+The main objectives of the project are to:
 
-2. **Prepare data for machine learning:** Clean and transform satellite telemetry, engineer time-dependent features, and establish chronological training, validation, and testing datasets.
+1. Explore and understand historical satellite telemetry datasets.
+2. Identify patterns, trends, correlations, and anomalies in satellite electrical power measurements.
+3. Clean and preprocess telemetry data for machine learning.
+4. Develop relevant features from historical power measurements.
+5. Train and compare machine learning models for satellite power prediction.
+6. Evaluate predictive performance using appropriate regression metrics.
+7. Develop an interactive AI-powered satellite power simulation.
+8. Generate and validate a final hourly satellite power prediction file.
+9. Document the methodology, results, and limitations in a reproducible GitHub project.
 
-3. **Develop predictive AI models:** Implement and evaluate persistence, Ridge Regression, and Histogram Gradient Boosting approaches for short-term satellite power forecasting.
+## 4. Dataset Description
 
-4. **Identify a suitable forecasting model:** Compare model performance using MAE, RMSE, and R², selecting a model based on validation performance.
+The project uses historical satellite telemetry organized into two datasets:
 
-5. **Develop an interactive satellite power simulation:** Integrate the selected forecasting model into a simulation that reproduces historical telemetry observations and predicts future power measurements.
+- `annee1` — First observation period.
+- `annee2` — Second observation period.
 
-6. **Monitor predicted power conditions:** Classify forecast power levels into LOW, MEDIUM, and HIGH categories and visualize prediction accuracy.
+The telemetry includes electrical power measurements and additional operational information.
 
-7. **Evaluate system performance:** Assess forecasting reliability, identify limitations, and establish a foundation for future improvements.
+The original dataset directories contain files such as:
 
-## 3. Project Architecture and Workflow
+- `power.csv` — Satellite electrical power measurements.
+- `dmop.csv`
+- `evtf.csv`
+- `ftl.csv`
+- `ltdata.csv`
+- `saaf.csv`
 
-Dream-in-Orbit follows a modular, four-stage workflow that transforms historical satellite telemetry into an AI-powered satellite power prediction and monitoring simulation.
+The analysis focuses on understanding and predicting satellite electrical power behavior.
 
-### 3.1 System Architecture
+### Data availability
+
+The original telemetry datasets and some generated model artifacts are excluded from GitHub because of their size.
+
+Users must obtain the required datasets separately and place them in the appropriate local directories before reproducing the complete workflow.
+
+## 5. Technologies and Tools
+
+| Category | Technologies |
+|---|---|
+| Programming language | Python |
+| Development environment | Jupyter Notebook, Anaconda |
+| Data processing | Pandas, NumPy |
+| Machine learning | Scikit-learn |
+| Visualization | Matplotlib |
+| Interactive simulation | ipywidgets |
+| Model serialization | Joblib |
+| Version control | Git and GitHub |
+| Archived model scripts | PyTorch, Scikit-learn |
+
+## 6. Project Structure
 
 ```text
-              HISTORICAL SATELLITE TELEMETRY
-                     (annee1, annee2)
-                             |
-                             v
-                01 — DATA EXPLORATION
-                 Data quality assessment
-                 Statistical analysis
-                 Temporal pattern analysis
-                             |
-                             v
-                02 — DATA PREPROCESSING
-                 Data cleaning
-                 Feature engineering
-                 Chronological data splitting
-                 Feature scaling
-                             |
-                             v
-                03 — AI POWER PREDICTION
-                 Persistence baseline
-                 Ridge Regression
-                 Histogram Gradient Boosting
-                 Model evaluation and selection
-                             |
-                             v
-                TRAINED FORECASTING MODEL
-                             |
-                             v
-                04 — POWER SIMULATION
-                 Historical telemetry replay
-                 Future power prediction
-                 Actual vs. predicted comparison
-                 Interactive monitoring
-                 LOW / MEDIUM / HIGH classification
-                             |
-                             v
-                PERFORMANCE EVALUATION
-                 MAE | RMSE | R²
+Dream-in-Orbit-an-AI-that-simulates-a-satellite/
+│
+├── archive/
+│   ├── evaluate.py
+│   ├── features.py
+│   ├── predict.py
+│   ├── train.py
+│   ├── train_additional.py
+│   ├── predict_additional.py
+│   ├── make_validation.py
+│   └── worldmodel.py
+│
+├── data/
+│   ├── annee1/
+│   ├── annee2/
+│   └── processed/
+│
+├── notebooks/
+│   ├── 01_Satellite_Data_Exploration.ipynb
+│   ├── 02_Satellite_Data_Preprocessing.ipynb
+│   ├── 03_Satellite_Power_Prediction.ipynb
+│   └── 04_Satellite_Power_Simulation.ipynb
+│
+├── figures/
+├── results/
+├── scripts/
+│
+├── final_predictions.csv
+├── README.md
+└── .gitignore
 ```
 
-### 3.2 Notebook Organization
+**Note:** Some local directories and large data files are excluded from version control. The archived scripts are retained separately from the main notebook workflow.
 
-| Notebook | Description |
-|---|---|
-| `01_Satellite_Data_Exploration.ipynb` | Explores satellite telemetry, evaluates data quality, and investigates statistical and temporal patterns. |
-| `02_Satellite_Data_Preprocessing.ipynb` | Cleans the telemetry, creates forecasting features, and prepares chronological training, validation, and test datasets. |
-| `03_Satellite_Power_Prediction.ipynb` | Develops, compares, evaluates, and exports machine-learning forecasting models. |
-| `04_Satellite_Power_Simulation.ipynb` | Integrates the selected model into an interactive satellite power prediction and monitoring simulation. |
+## 7. Project Methodology
 
-### 3.3 Workflow Description
+The project follows a structured machine learning workflow.
 
-The project begins with two years of historical satellite telemetry. Exploratory analysis identifies relevant power measurements and supports the selection of variables for forecasting.
+### Stage 1 — Exploratory Data Analysis
 
-The preprocessing stage transforms these measurements into model-ready datasets, including lagged observations and rolling statistical features. Chronological data partitions are used to evaluate forecasting performance while reducing the risk of temporal data leakage.
+**Notebook:** `01_Satellite_Data_Exploration.ipynb`
 
-The prediction stage evaluates multiple forecasting approaches and selects Histogram Gradient Boosting based on validation performance.
+This stage investigates the characteristics of the satellite telemetry datasets.
 
-Finally, the simulation stage applies the trained model to held-out historical observations, compares predicted and actual future power measurements, and provides interactive monitoring of forecast power conditions.
+Activities include:
 
-The simulation is data-driven and operates offline; it does not model satellite orbital mechanics or communicate with an operational spacecraft.
+- Examining dataset structure and variables.
+- Identifying missing values and data quality issues.
+- Analyzing electrical power distributions.
+- Investigating correlations between power measurements.
+- Exploring temporal patterns and unusual observations.
+- Visualizing satellite power behavior.
 
-## 4. Dataset Description and Feature Engineering
+### Stage 2 — Data Preprocessing and Feature Engineering
 
-### 4.1 Dataset Overview
+**Notebook:** `02_Satellite_Data_Preprocessing.ipynb`
 
-Dream-in-Orbit uses two historical satellite telemetry datasets, identified as `annee1` and `annee2`.
+This stage prepares the telemetry data for machine learning.
 
-The datasets contain time-series measurements describing satellite electrical power behavior. They are analyzed and processed separately to investigate forecasting performance across different observation periods.
+The main forecasting target is `NPWD2721`, with `NPWD2802` used as an additional input variable.
 
-The original telemetry contains 33 power-related variables. Following exploratory analysis, two measurements were selected as the primary inputs for the forecasting task:
+Feature engineering includes:
 
-- **`NPWD2721`:** Primary electrical power variable and the basis of the prediction target.
-- **`NPWD2802`:** Additional electrical power variable used to provide supporting information.
+- Current telemetry measurements.
+- Historical lagged measurements.
+- Rolling means.
+- Rolling standard deviations.
 
-The forecasting objective is to predict the future value of `NPWD2721` approximately **288 seconds (4.8 minutes) ahead**.
+The forecasting horizon is **288 seconds (approximately 4.8 minutes)**.
 
-### 4.2 Feature Engineering
+The data is divided chronologically into:
 
-To capture temporal relationships, the preprocessing pipeline generates 16 input features from the two selected power variables.
-
-| Feature category | Description | Number of features |
-|---|---|---:|
-| Current measurements | Current values of `NPWD2721` and `NPWD2802` | 2 |
-| Lagged measurements | Previous values at 60, 120, and 300 seconds | 6 |
-| Rolling averages | Rolling means over 120- and 300-second windows | 4 |
-| Rolling standard deviations | Rolling variability over 120- and 300-second windows | 4 |
-| **Total** | **Model input features** | **16** |
-
-These features provide information about recent power levels, historical behavior, and short-term variability.
-
-### 4.3 Data Preprocessing
-
-The preprocessing workflow includes:
-
-1. Data-quality assessment and cleaning.
-2. Chronological ordering and timestamp handling.
-3. Generation of lagged and rolling statistical features.
-4. Construction of future prediction targets.
-5. Filtering of invalid observations and unsuitable temporal gaps.
-6. Chronological separation into training, validation, and testing datasets.
-7. Feature scaling using parameters fitted on training data only.
-
-The chronological partitioning strategy allocates approximately:
-
-- **70%** of observations to training.
-- **15%** to validation.
-- **15%** to testing.
-
-This approach supports evaluation on later observations while reducing the risk of temporal data leakage.
-
-### 4.4 Data Availability
-
-The original telemetry datasets, processed NumPy arrays, and serialized trained models are excluded from the GitHub repository because of their storage requirements.
-
-The repository contains the Jupyter notebooks and project code. Reproducing the full workflow requires access to the original satellite telemetry datasets.
-
-Users with access to the required datasets can execute the notebooks in their numerical order to regenerate the preprocessing outputs, train the forecasting models, and run the simulation.
-
-## 5. Machine Learning Models and Forecasting Results
-
-### 5.1 Forecasting Approaches
-
-Dream-in-Orbit evaluates three approaches for predicting satellite electrical power approximately 288 seconds ahead.
-
-**1. Persistence Baseline**
-
-The persistence baseline assumes that the future power measurement will be equal to the current measurement. It provides a simple reference against which machine-learning models can be evaluated.
-
-**2. Ridge Regression**
-
-Ridge Regression is a regularized linear regression algorithm that models relationships between the engineered input features and the future power target.
-
-**3. Histogram Gradient Boosting**
-
-Histogram Gradient Boosting is a tree-based machine-learning algorithm capable of learning nonlinear relationships between satellite power measurements and engineered temporal features.
-
-### 5.2 Model Evaluation Metrics
-
-The forecasting models are evaluated using three performance metrics:
-
-- **Mean Absolute Error (MAE):** Measures the average absolute difference between predicted and actual values.
-- **Root Mean Squared Error (RMSE):** Measures prediction error while placing greater emphasis on larger errors.
-- **Coefficient of Determination (R²):** Measures the proportion of variation in the target explained by the model.
-
-Lower MAE and RMSE values indicate better predictive accuracy, while higher R² values generally indicate better explanatory performance.
-
-### 5.3 Final Test Results
-
-The following table summarizes the selected Histogram Gradient Boosting model's performance on the independent test datasets.
-
-| Evaluation metric | `annee1` | `annee2` |
-|---|---:|---:|
-| MAE | 0.0282 | 0.0373 |
-| RMSE | 0.0547 | 0.0701 |
-| R² | 0.7634 | 0.6841 |
-
-For comparison, the persistence baseline achieved the following test results:
-
-| Evaluation metric | `annee1` | `annee2` |
-|---|---:|---:|
-| MAE | 0.0207 | 0.0287 |
-| RMSE | 0.0573 | 0.0720 |
-| R² | 0.7404 | 0.6670 |
-
-### 5.4 Model Selection
-
-Histogram Gradient Boosting achieved the lowest validation RMSE among the evaluated forecasting approaches and was selected for the satellite power simulation.
-
-On the test datasets, it reduced RMSE relative to the persistence baseline by approximately:
-
-- **4.5% for `annee1`**
-- **2.6% for `annee2`**
-
-However, the persistence baseline achieved lower MAE on both test datasets. Therefore, the selected model should not be interpreted as outperforming the baseline across every evaluation metric.
-
-The results demonstrate that Histogram Gradient Boosting provides modest improvements in RMSE and R², while also revealing opportunities for further improvement.
-
-### 5.5 Forecasting Limitations
-
-The current forecasting approach has several limitations:
-
-- Forecasting is restricted to a single prediction horizon of approximately 288 seconds.
-- Sudden changes in satellite power behavior may produce larger prediction errors.
-- Improvements over the persistence baseline are relatively modest.
-- The model is trained using selected electrical power variables rather than a complete representation of satellite operating conditions.
-
-Future work may investigate additional telemetry variables, alternative prediction horizons, and sequence-based forecasting architectures.
-
-## 6. Interactive Satellite Power Simulation
-
-### 6.1 Simulation Overview
-
-Dream-in-Orbit integrates the selected Histogram Gradient Boosting forecasting model into an interactive satellite power monitoring simulation.
-
-The simulation uses previously unseen observations from the `annee1` test dataset to demonstrate how machine learning can predict future satellite electrical power measurements.
-
-The simulation evaluates **1,000 observations**, maintaining the original prediction horizon of approximately **288 seconds (4.8 minutes)**.
-
-### 6.2 Simulation Features
-
-The interactive simulation provides the following capabilities:
-
-1. **Satellite Power Forecasting:** Predicts future values of the `NPWD2721` electrical power variable using the trained forecasting model.
-
-2. **Actual vs. Predicted Visualization:** Displays observed and predicted future power measurements to illustrate forecasting behavior.
-
-3. **Interactive Simulation Control:** Uses an `ipywidgets` slider to allow users to explore individual simulation steps.
-
-4. **Power Monitoring:** Displays the actual future power value, predicted value, and absolute prediction error for a selected observation.
-
-5. **Power Level Classification:** Categorizes predicted power conditions into LOW, MEDIUM, and HIGH levels using data-derived thresholds.
-
-6. **Performance Evaluation:** Calculates forecasting accuracy across the simulation observations.
-
-### 6.3 Simulation Performance
-
-The selected Histogram Gradient Boosting model achieved the following results across the 1,000 simulated observations:
-
-| Metric | Simulation Result |
+| Dataset split | Percentage |
 |---|---:|
-| Mean Absolute Error (MAE) | 0.0269 |
-| Root Mean Squared Error (RMSE) | 0.0555 |
-| Coefficient of Determination (R²) | 0.7557 |
-| Simulation observations | 1,000 |
-| Forecast horizon | 288 seconds |
+| Training | 70% |
+| Validation | 15% |
+| Testing | 15% |
 
-These results indicate that the forecasting model captures a substantial proportion of the observed variation in future satellite power measurements.
+Chronological splitting helps preserve temporal order and reduce data leakage.
 
-However, prediction errors remain, particularly during abrupt changes in power behavior.
+### Stage 3 — Machine Learning Model Development
 
-### 6.4 Simulation Scope and Limitations
+**Notebook:** `03_Satellite_Power_Prediction.ipynb`
 
-The current implementation is an **offline, data-driven satellite power simulation** based on historical telemetry.
+Three forecasting approaches were evaluated:
 
-It does not currently simulate orbital trajectories, spacecraft attitude, solar panel physics, battery charging dynamics, or real-time satellite communication.
+1. Persistence baseline.
+2. Ridge Regression.
+3. Histogram Gradient Boosting Regressor.
 
-The LOW, MEDIUM, and HIGH categories are relative classifications derived from the available data. They should not be interpreted as verified spacecraft safety thresholds.
+The models were evaluated using:
 
-The simulation demonstrates the potential application of machine learning in satellite power monitoring and provides a foundation for future system development.
+- Mean Absolute Error (MAE).
+- Root Mean Squared Error (RMSE).
+- Coefficient of Determination (R²).
 
-## 7. Installation and Usage
+Histogram Gradient Boosting was selected based on validation performance for both datasets.
 
-### 7.1 System Requirements
+### Stage 4 — AI-Powered Satellite Power Simulation
 
-The project was developed using:
+**Notebook:** `04_Satellite_Power_Simulation.ipynb`
 
-- Python 3.11.18
-- Anaconda / Conda
+The simulation demonstrates how a trained machine learning model can predict future satellite power behavior using historical telemetry observations.
+
+The simulation includes:
+
+- Actual versus predicted satellite power visualization.
+- An interactive slider for selecting simulation steps.
+- Prediction error monitoring.
+- Power-state classification into LOW, MEDIUM, and HIGH categories.
+
+The simulation uses held-out historical observations and is intended as a data-driven demonstration rather than a complete orbital physics simulator.
+
+## 8. Machine Learning Results
+
+### Histogram Gradient Boosting — Test Performance
+
+| Dataset | MAE | RMSE | R² |
+|---|---:|---:|---:|
+| `annee1` | 0.0282 | 0.0547 | 0.7634 |
+| `annee2` | 0.0373 | 0.0701 | 0.6841 |
+
+### Persistence Baseline — Test Performance
+
+| Dataset | MAE | RMSE | R² |
+|---|---:|---:|---:|
+| `annee1` | 0.0207 | 0.0573 | 0.7404 |
+| `annee2` | 0.0287 | 0.0720 | 0.6670 |
+
+The selected Histogram Gradient Boosting models achieved lower RMSE and higher R² than the persistence baseline on both test datasets.
+
+However, the persistence baseline achieved lower MAE. This highlights the importance of evaluating models using multiple performance metrics.
+
+## 9. Interactive Simulation Results
+
+The interactive simulation was evaluated using 1,000 held-out observations from the first dataset.
+
+| Metric | Result |
+|---|---:|
+| Simulation steps | 1,000 |
+| Prediction horizon | 288 seconds |
+| MAE | 0.0269 |
+| RMSE | 0.0555 |
+| R² | 0.7557 |
+
+The simulation allows users to examine individual prediction steps, compare actual and predicted power measurements, and monitor changes in the predicted power state.
+
+## 10. Final Prediction Deliverable
+
+The project includes a validated output file:
+
+**`final_predictions.csv`**
+
+This file contains hourly satellite electrical power predictions across 33 power variables.
+
+### File validation
+
+| Property | Result |
+|---|---|
+| Filename | `final_predictions.csv` |
+| Number of rows | 16,319 |
+| Number of columns | 34 |
+| Power variables | 33 |
+| Timestamp column | `ut_ms` |
+| Missing values | 0 |
+| Duplicate timestamps | 0 |
+| Timestamp ordering | Chronological |
+| Time interval | 1 hour |
+
+The prediction timestamps cover the period from July 17, 2010, to May 26, 2012, in UTC.
+
+### Evaluation
+
+The final prediction file was evaluated using the project's archived evaluation script.
+
+**Reported RMSE: 0.111621**
+
+This evaluation concerns the separate hourly multi-variable prediction deliverable and should not be directly compared with the notebook forecasting metrics because the prediction tasks and evaluation setups differ.
+
+## 11. Installation and Setup
+
+### Prerequisites
+
+- Python
+- Anaconda or another compatible Python environment
 - Jupyter Notebook
-- NumPy, Pandas, Matplotlib, and Seaborn
-- Scikit-learn and SciPy
-- Joblib
-- ipywidgets
+- Required Python libraries
+- Original satellite telemetry datasets for full reproduction
 
-The required Python package versions are listed in `requirements.txt`.
-
-### 7.2 Clone the Repository
-
-Open Anaconda Prompt or a terminal and clone the GitHub repository:
+### Clone the repository
 
 ```bash
 git clone https://github.com/damisar/Dream-in-Orbit-an-AI-that-simulates-a-satellite.git
 ```
 
-Navigate to the project directory:
+Navigate into the project directory:
 
 ```bash
 cd Dream-in-Orbit-an-AI-that-simulates-a-satellite
 ```
 
-### 7.3 Create the Python Environment
-
-Create a dedicated Conda environment using Python 3.11:
+### Create a Python environment
 
 ```bash
 conda create -n dream-orbit python=3.11 -y
-```
-
-Activate the environment:
-
-```bash
 conda activate dream-orbit
 ```
 
-Install the required Python libraries:
+### Install the main notebook dependencies
 
 ```bash
-python -m pip install -r requirements.txt
+python -m pip install numpy pandas scikit-learn matplotlib seaborn scipy joblib ipywidgets jupyter ipykernel
 ```
 
-Install Jupyter Notebook if it is not already available:
+The archived training and prediction scripts also require PyTorch.
 
-```bash
-python -m pip install notebook
-```
-
-Register the environment as a Jupyter kernel:
-
-```bash
-python -m ipykernel install --user --name dream-orbit --display-name "Python (Dream Orbit)"
-```
-
-### 7.4 Prepare the Satellite Telemetry Data
-
-The original satellite telemetry datasets and generated model artifacts are not included in this repository.
-
-To reproduce the complete workflow, obtain the original `annee1` and `annee2` datasets and place them in the data directories expected by the notebooks.
-
-The preprocessing notebook generates the processed datasets, while the prediction notebook trains and exports the machine-learning models required by the simulation.
-
-### 7.5 Launch Jupyter Notebook
-
-From the project directory, run:
+### Launch Jupyter Notebook
 
 ```bash
 jupyter notebook
 ```
 
-Select the **Python (Dream Orbit)** kernel when opening the notebooks.
+Open the notebooks in the following order:
 
-### 7.6 Execute the Project
+1. `01_Satellite_Data_Exploration.ipynb`
+2. `02_Satellite_Data_Preprocessing.ipynb`
+3. `03_Satellite_Power_Prediction.ipynb`
+4. `04_Satellite_Power_Simulation.ipynb`
 
-Run the notebooks in the following order:
+The complete notebook workflow requires the original telemetry data and locally generated preprocessing/model artifacts.
 
-1. `01_Satellite_Data_Exploration.ipynb` — Explore the satellite telemetry datasets.
-2. `02_Satellite_Data_Preprocessing.ipynb` — Prepare the forecasting features and datasets.
-3. `03_Satellite_Power_Prediction.ipynb` — Train and evaluate the forecasting models.
-4. `04_Satellite_Power_Simulation.ipynb` — Run the interactive satellite power simulation.
+## 12. Project Limitations
 
-The notebooks should be executed sequentially because later stages depend on datasets and model artifacts generated by earlier stages.
+The current project has several limitations:
 
-### 7.7 Interactive Simulation
+- The interactive simulation is based on historical telemetry rather than real-time satellite data.
+- The simulation does not reproduce complete satellite orbital dynamics or physical power-system behavior.
+- Forecasting performance may vary across datasets and operating conditions.
+- Large datasets and some trained models are not included in the public repository.
+- The archived model-training pipeline remains a separate workflow and has not been fully reproduced as part of the final notebook implementation.
 
-In Notebook 04, execute the simulation cells and use the interactive slider to explore the forecast results.
+These limitations provide opportunities for future development.
 
-The interface displays predicted future power measurements, actual observations, prediction errors, and relative power-level classifications.
+## 13. Future Improvements
 
-**Note:** A successful `pip check` in the original development environment does not guarantee that every package version will install successfully on another computer. Installation compatibility should be verified separately.
+Potential improvements include:
 
-## 8. Project Limitations and Future Improvements
+1. Exploring advanced deep learning architectures for satellite power forecasting.
+2. Implementing automated anomaly detection.
+3. Incorporating additional telemetry variables and operational conditions.
+4. Improving model robustness across different observation periods.
+5. Developing more realistic satellite power-system simulations.
+6. Extending the interactive monitoring interface.
+7. Improving reproducibility through automated training and evaluation scripts.
 
-### 8.1 Current Limitations
+## 14. Conclusion
 
-Although Dream-in-Orbit demonstrates the application of artificial intelligence to satellite power forecasting and monitoring, several limitations remain.
+Dream-in-Orbit demonstrates how artificial intelligence and machine learning can be applied to historical satellite telemetry for electrical power analysis, forecasting, and interactive monitoring.
 
-1. **Historical Data Dependence:** The forecasting models are trained and evaluated using historical satellite telemetry rather than live satellite measurements.
+The project integrates data exploration, preprocessing, predictive modeling, performance evaluation, and simulation into a structured workflow.
 
-2. **Limited Input Variables:** The current implementation uses two electrical power variables and their engineered temporal features. Other operating conditions that may influence satellite power behavior are not explicitly represented.
+The resulting prototype provides an educational and practical demonstration of data-driven satellite power prediction. The validated hourly prediction deliverable further illustrates the application of machine learning techniques to multiple satellite electrical power variables.
 
-3. **Single Forecast Horizon:** The models predict power approximately 288 seconds ahead. Their performance at shorter or longer forecasting horizons has not been evaluated.
+Although the current implementation is not a complete physical satellite simulator, it establishes a foundation for future research into intelligent satellite monitoring, forecasting, and operational decision support.
 
-4. **Forecasting Accuracy:** Histogram Gradient Boosting improves RMSE and R² relative to the persistence baseline, but the improvements are modest. The persistence baseline also achieves lower MAE.
+---
 
-5. **Simplified Power Monitoring:** LOW, MEDIUM, and HIGH classifications are based on relative thresholds derived from the available data, not validated spacecraft operational limits.
+**Project:** Dream-in-Orbit: An AI That Simulates a Satellite
 
-6. **Offline Simulation:** The simulation replays historical telemetry and generates model predictions. It does not simulate satellite orbital dynamics, spacecraft attitude, or physical power-system behavior.
+**Repository:** https://github.com/damisar/Dream-in-Orbit-an-AI-that-simulates-a-satellite
 
-7. **Data Availability:** The original telemetry datasets and trained model files are not included in the public repository, limiting immediate reproducibility without access to the source data.
+**Development environment:** Python, Anaconda, Jupyter Notebook
 
-### 8.2 Future Improvements
-
-Potential extensions of Dream-in-Orbit include:
-
-1. **Advanced Time-Series Forecasting:** Investigate sequence-based models such as Long Short-Term Memory (LSTM) networks, Temporal Convolutional Networks (TCNs), and other forecasting architectures.
-
-2. **Multi-Horizon Prediction:** Extend the forecasting framework to predict satellite power at multiple future time intervals.
-
-3. **Additional Telemetry Features:** Incorporate more electrical, thermal, and operational measurements to improve the representation of satellite conditions.
-
-4. **Anomaly Detection:** Develop AI-based methods to identify unusual power behavior and potential operational anomalies.
-
-5. **Physics-Based Satellite Simulation:** Integrate simplified models of orbital illumination, solar energy generation, battery behavior, and spacecraft electrical loads.
-
-6. **Real-Time Monitoring:** Explore integration with live telemetry streams or a simulated real-time data source.
-
-7. **Improved Visualization:** Develop a dedicated dashboard for monitoring satellite power forecasts, system status, and prediction uncertainty.
-
-8. **Model Robustness Evaluation:** Assess forecasting performance across additional datasets, operating conditions, and time periods.
-
-### 8.3 Long-Term Vision
-
-The long-term vision of Dream-in-Orbit is to evolve from an offline satellite power forecasting prototype into a more comprehensive AI-assisted satellite monitoring and simulation platform.
-
-Such a platform could combine data-driven forecasting, physical satellite models, anomaly detection, and interactive visualization to support research into intelligent spacecraft operations.
-
-These capabilities represent future development opportunities and are not part of the current implementation.
-
-## 9. Project Conclusion
-
-Dream-in-Orbit demonstrates how artificial intelligence and historical satellite telemetry can be combined to develop a data-driven satellite electrical power forecasting and monitoring prototype.
-
-The project successfully integrates four major components: exploratory data analysis, time-series preprocessing, machine-learning forecasting, and interactive simulation.
-
-Three forecasting approaches were evaluated: Persistence, Ridge Regression, and Histogram Gradient Boosting. Histogram Gradient Boosting was selected based on validation RMSE and demonstrated modest improvements in test RMSE and R² compared with the persistence baseline.
-
-The selected forecasting model was subsequently integrated into an interactive simulation that predicts satellite electrical power approximately 288 seconds ahead, visualizes actual and predicted measurements, and classifies forecast power conditions.
-
-Although the current system is limited to offline telemetry-based simulation, it establishes a practical foundation for investigating more advanced AI-assisted satellite monitoring techniques.
-
-Overall, Dream-in-Orbit illustrates both the potential and the limitations of machine learning for short-term satellite power forecasting, while providing a modular framework for future research and development.
+**Version control:** Git and GitHub
