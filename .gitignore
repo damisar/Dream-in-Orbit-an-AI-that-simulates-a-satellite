@@ -27,3 +27,6 @@ __pycache__/
 .ipynb_checkpoints/
 # Processed satellite datasets and preprocessing artifacts
 data/processed/
+
+# Local Python environment package inventory
+installed_packages.txt
